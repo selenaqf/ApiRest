@@ -130,6 +130,16 @@ router.post("/login", async(req, res) => {
         res.status(200).json({msn: "BIENVENIDO AL SISTEMA" + " " + body.Nombre, token : token });
             return;
     }
+    //validacion email
+    var results =  await CLIENTES.find({Email: body.Nombre, Password: sha1(body.Password)});
+    if(results.length == 1){
+        var token = JWT.sign({
+            exp: Math.floor(Date.now() / 1000) + (60 * 60),
+            data: results[0].id,
+        }, 'seminariokeysecret')
+        res.status(200).json({msn: "BIENVENIDO AL SISTEMA" + " " + body.Nombre, token : token });
+            return;
+    }
     res.status(200).json({msn: "CREDENCIALES INCORRECTAS"});
             return;
 });
