@@ -16,7 +16,7 @@ var MENUSSCHEMA = new mongoose.Schema
     },
     FechadeRegistro: {
         type: Date,
-        required: (true, "LA FECHA DE REGISTRO DEL PEDIDO ES NECESARIO")
+        //required: (true, "LA FECHA DE REGISTRO DEL PEDIDO ES NECESARIO")
     },
     FotografiadelProducto: {
         type: String,

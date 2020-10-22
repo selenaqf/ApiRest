@@ -27,7 +27,7 @@ var CLIENTESSCHEMA = new  mongoose.Schema({
         type: String,
         required:[true, "EL PASSWORD ES NECESARIO"],
     },
-    roles: {
+    Roles: {
         type: Array,
     },
 });

@@ -3,7 +3,7 @@ var sha1 = require("sha1");
 var router = express.Router();
 var fileUpload = require("express-fileupload")
 var RESTAURANT = require("../database/restaurant");
-const midleware = require("./midleware");
+//const midleware = require("./midleware");
 //var midleware = require("./midleware");
 
 router.use(fileUpload({
@@ -56,6 +56,7 @@ router.get("/restaurant",(req, res) => {
     });
 });
 router.post("/restaurant", (req, res) => {
+    console.log(req.body);
     var restaurantRest = req.body;
     var restaurantDB = new RESTAURANT(restaurantRest);
     restaurantDB.save((err, docs) => {
@@ -69,13 +70,14 @@ router.post("/restaurant", (req, res) => {
 });
 
 router.put("/restaurant", async(req, res) => {
+    //console.log(req.body);
     var params = req.query;
     var bodydata = req.body;
     if (params.id == null) {
         res.status(300).json({msn: "EL PARAMETRO ID ES NECESARIO"});
         return;
     }
-    var allowkeylist = ["Nombre", "Calle", "Telefono"];
+    var allowkeylist = ["Nombre","Nit","Propietario", "Calle", "Telefono"];
     var keys = Object.keys(bodydata);
     var updateobjectdata={};
     for (var i = 0; i < keys.length; i++) {
@@ -86,13 +88,17 @@ router.put("/restaurant", async(req, res) => {
     RESTAURANT.update({_id: params.id}, {$set: updateobjectdata}, (err, docs) => {
         if (err) {
             res.status(500).json({msn: "EXISTEN PROBLEMAS EN LA BASE DE DATOS"});
+            
             return;
         }
-        res.status(200).json(docs);
+        res.status(200).json({
+            message: "ACTUALIZADO",
+        });
     });
 });
 
 router.delete("/restaurant", (req, res) => {
+    //console.log(req.query);
     var params = req.query;
     if (params.id == null) {
         res.status(300).json({msn: "EL PARAMETRO ID ES NECESARIO"});
@@ -103,12 +109,12 @@ router.delete("/restaurant", (req, res) => {
             res.status(500).json({msn: "EXISTEN PROBLEMAS EN LA BASE DE DATOS"});
             return;
         }
-        res.status(200).json(docs);
+        res.status(200).json({
+            message: "ELIMINADO", 
+            docs
+        });
     });
     
-});
-router.get("restaurant", (req, res) => {
-
 });
 
 module.exports = router;

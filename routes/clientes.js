@@ -37,7 +37,7 @@ router.get("/clientes", midleware, (req, res) => {
         return;
     });
 });
-router.post("/clientes", midleware, (req, res) => {
+router.post("/clientes", (req, res) => {
     var clientesRest = req.body;
     //creamos validacion para el password
     if (clientesRest.Password == null) {

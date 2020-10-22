@@ -7,7 +7,7 @@ var RESTAURANTSCHEMA = new mongoose.Schema
         required: (true, "EL NOMBRE ES NECESARIO")
     },
     Nit: {
-        type: Number,
+        type: String,
         required: (true, "EL NIT ES NECESARIO")
         //falta realizar restricciones
     },
@@ -48,7 +48,32 @@ var RESTAURANTSCHEMA = new mongoose.Schema
     FotoLugar: {
         type: String,
         //falta codificacion y descargar imagen
-    }
+    },
+    Menu: [
+        {
+            Nombre: {
+                type: String,
+                required: (true, "EL NOMBRE ES NECESARIO")
+            },
+            Precio: {
+                type: Number,
+                required: (true, "EL PRECIO ES NECESARIO")
+            },
+            Descripcion: {
+                type: String,
+                required: (true, "LA DESCRIPCION DEL PEDIDO ES NECESARIO")
+            },
+            FechadeRegistro: {
+                type: Date,
+                //required: (true, "LA FECHA DE REGISTRO DEL PEDIDO ES NECESARIO")
+            },
+            FotografiadelProducto: {
+                type: String,
+                //falta codificacion y descargar imagen
+            }
+        
+        }
+    ]
 });
 
 var RESTAURANT = mongoose.model("restaurant", RESTAURANTSCHEMA);
