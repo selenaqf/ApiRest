@@ -16,20 +16,20 @@ var CLIENTESSCHEMA = new  mongoose.Schema({
     Email: {
         type: String,
         required: [true, "EL EMAIL ES NECESARIO"],
-        validate: {
+        /*validate: {
             validator: (value) => {
                 return /^[\w\.]+@[\w\.]+\.\w{3,3}$/.test(value);
             }
-        },
+        },*/
         message: props => "${props.value} NO ES VALIDO"
     },
     Password: {
         type: String,
         required:[true, "EL PASSWORD ES NECESARIO"],
     },
-    Roles: {
-        type: Array,
-    },
+    Rol: {
+        type: String, //C-> clientes , R-> root(admin)
+    }
 });
 var CLIENTES = mongoose.model("clientes", CLIENTESSCHEMA);
 module.exports = CLIENTES;

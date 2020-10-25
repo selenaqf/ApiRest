@@ -44,7 +44,7 @@ router.post("/clientes", (req, res) => {
         res.status(300).json({msn: "EL PASSWORD ES NECESARIO PARA CONTINUAR CON EL REGISTRO"});
         return;
     }
-    if (clientesRest.Password.length < 6) {
+    /*if (clientesRest.Password.length < 6) {
         res.status(300).json({msn: "EL PASSWORD ES DEMASIADO CORTO"});
         return;
     }
@@ -56,9 +56,9 @@ router.post("/clientes", (req, res) => {
     if (!/[\$\^\@\&\(\)\{\}\#]+/.test(clientesRest.Password)) {
         res.status(300).json({msn: "EL PASSWORD NECESITA UN CARACTER ESPECIAL"});
         return ;
-    }
+    }*/
     clientesRest.Password = sha1(clientesRest.Password);
-    
+    clientesRest
     var clientesDB = new CLIENTES(clientesRest);
 
     clientesDB.save((err, docs) => {
@@ -127,7 +127,7 @@ router.post("/login", async(req, res) => {
             exp: Math.floor(Date.now() / 1000) + (60 * 2),
             data: results[0].id,
         }, 'seminariokeysecret')
-        res.status(200).json({msn: "BIENVENIDO AL SISTEMA" + " " + body.Nombre, token : token });
+        res.status(200).json({msn: "AA" + response.getString("msn") + body.Nombre, token : token });
             return;
     }
     //validacion email
@@ -137,7 +137,7 @@ router.post("/login", async(req, res) => {
             exp: Math.floor(Date.now() / 1000) + (60 * 60),
             data: results[0].id,
         }, 'seminariokeysecret')
-        res.status(200).json({msn: "BIENVENIDO AL SISTEMA" + " " + body.Nombre, token : token });
+        res.status(200).json({msn: results[0].Rol   , token : token });
             return;
     }
     res.status(200).json({msn: "CREDENCIALES INCORRECTAS"});
