@@ -21,7 +21,12 @@ var MENUSSCHEMA = new mongoose.Schema
     FotografiadelProducto: {
         type: String,
         //falta codificacion y descargar imagen
+    },
+
+    restaurant_id:{
+        type: String,
     }
+    
 
 });
 

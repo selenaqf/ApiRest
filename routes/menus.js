@@ -2,25 +2,34 @@ var express = require("express");
 var router = express.Router();
 var MENUS = require("../database/menus");
 
-router.get("/menus", (req, res) => {
+router.get("/menus", async(req, res) => {
     var filter = {};
     var params = req.query;
     var select = "";
     var order = {};
+    
+    console.log(params)
+    
+
     if (params.Nombre != null) {
+        
         var expresion = new RegExp(params.Nombre);
         filter["Nombre"] = expresion;
     }
+
+    
     if (params.filters != null) {
         select = params.filters.replace(/,/g, " ");
+            //recuperando
+        
     }
-    if (params.order != null) {
+    /*if (params.order != null) {
         var data = params.order.split(",");
         var number = parseInt(data[1]);
         order[data[0]] = number;
-    }
+    }*/
 
-    MENUS.find(filter).
+    MENUS.find({restaurant_id: params.restaurant_id}).
     select(select).
     sort(order).
     exec((err, docs) => {
