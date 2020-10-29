@@ -21,12 +21,12 @@ var RESTAURANTSCHEMA = new mongoose.Schema
     },
     Telefono: {
         type: String,
-        validate: {
+        /*validate: {
         validator: function(v) {
             return /\d{3}-\d{3}-\d{4}/.test(v);
         },
         message: props => '${props.value} NO ES UN NUMERO VALIDO!'
-    },
+    },*/
     required: [true, 'EL TELEFONO ES NECESARIO']
 
     },
